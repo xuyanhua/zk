@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" 
+	"http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd" >
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	
+	<!-- ****************************输出位置**************************** -->
+	<!--1.输出到控制台 -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="info" />
+		<!--Threshold是个全局的过滤器，他将把低于所设置的level的信息过滤不显示出来 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %p [%t] %c | %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 2.每天的日志，输出到文件 -->
+	<appender name="DATE_FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="threshold" value="info" />
+		<!--日志文件路径和文件名称 -->
+		<param name="file" value="stdout.log" />
+		<!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+		<param name="append" value="true" />
+		<!-- Rollover at midnight each day -->
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %p [%t] %c | %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ****************************输出指定类包中的日志**************************** -->
+	<category name="org.springframework" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.springframework.aop" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.apache.httpclient.wire" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.apache.commons.httpclient" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.apache.zookeeper" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.mybatis" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="org.mybatis.spring" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="com.github.miemiedev" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="java.sql.Connection" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="java.sql.PreparedStatement" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="java.sql.ResultSet" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="com.alibaba.dubbo" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</category>
+	<category name="com.zhichengcredit" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="DATE_FILE" />
+	</category>
+
+	<!--根默认会自动构建一个 root,输出INFO级别的日志到控制台，供logger继承 -->
+	<root>
+		<!-- <priority value="INFO" />
+		 --><level value="DEBUG"></level>
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="DATE_FILE" />
+	</root>
+</log4j:configuration>
