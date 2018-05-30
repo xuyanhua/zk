@@ -7,6 +7,9 @@ package com.zk.master_slave;
  */
 public class Consts {
     final static String MASTER_PATH = "/master";
-    final static String WORKER_PATH_PREFIX = "/workers/worker-";
-    final static String TASK_PATH_PREFIX = "/tasks/task-";
+
+    final static String WORKERS_PATH = "/workers";
+    final static String WORKER_PATH_PREFIX = WORKERS_PATH + "/worker-";
+    final static String TASKS_PATH = "/tasks";
+    final static String TASK_PATH_PREFIX = TASKS_PATH + "/task-";
 }
