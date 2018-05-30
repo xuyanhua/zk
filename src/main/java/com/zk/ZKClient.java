@@ -56,9 +56,15 @@ public class ZKClient {
                         AsyncCallback.DataCallback cb, Object ctx) {
         zk.getData(path, watcher, cb, ctx);
     }
+
     public void getData(final String path, boolean watch,
                         AsyncCallback.DataCallback cb, Object ctx) {
         zk.getData(path, watch, cb, ctx);
+    }
+
+    public void setData(final String path, byte data[], int version,
+                        AsyncCallback.StatCallback cb, Object ctx) {
+        zk.setData(path, data, version, cb, ctx);
     }
 
 
