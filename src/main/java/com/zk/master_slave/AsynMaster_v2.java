@@ -45,7 +45,7 @@ public class AsynMaster_v2 {
     }
 
     void createParent(String path, final byte[] data) {
-        zkClient.create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, new AsyncCallback.StringCallback() {
+        zkClient.create(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT, new AsyncCallback.StringCallback() {
             @Override
             public void processResult(int rc, String path, Object ctx, String name) {
                 switch (KeeperException.Code.get(rc)) {
