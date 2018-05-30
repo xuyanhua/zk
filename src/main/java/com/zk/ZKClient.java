@@ -43,8 +43,22 @@ public class ZKClient {
         zk.create(path, data, acl, createMode);
     }
 
+
+    public void create(String path, byte[] data, List<ACL> acl, CreateMode createMode, AsyncCallback.StringCallback cb, Object ctx) {
+        zk.create(path, data, acl, createMode, cb, ctx);
+    }
+
     public byte[] getData(String path, boolean watch, Stat stat) throws KeeperException, InterruptedException {
         return zk.getData(path, watch, stat);
+    }
+
+    public void getData(final String path, Watcher watcher,
+                        AsyncCallback.DataCallback cb, Object ctx) {
+        zk.getData(path, watcher, cb, ctx);
+    }
+    public void getData(final String path, boolean watch,
+                        AsyncCallback.DataCallback cb, Object ctx) {
+        zk.getData(path, watch, cb, ctx);
     }
 
 

@@ -1,5 +1,6 @@
-package com.zk;
+package com.zk.master_slave;
 
+import com.zk.ZKClient;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 
 /**
+ * 同步选主
+ *
  * @author xuyanhua
  * @description:
  * @date 2018/5/29 下午4:09
@@ -24,7 +27,7 @@ public class Master {
 
     public static void main(String[] args) throws InterruptedException {
         Master master = new Master();
-        master.runForMaster(master.serverId);
+        master.runForMaster();
         logger.info("isLeader-->" + master.isLeader);
         Thread.sleep(60000);
     }
@@ -32,10 +35,9 @@ public class Master {
     /**
      * 执行群首选举操作
      *
-     * @param serverId
      * @return
      */
-    void runForMaster(String serverId) throws InterruptedException {
+    void runForMaster() throws InterruptedException {
         while (true) {
             try {
                 logger.info("try election leader .");
@@ -53,7 +55,7 @@ public class Master {
                 e.printStackTrace();
             }
             //如果出现这种异常，要检查是否已有群首
-            if (checkExistsMaster(serverId)) {
+            if (checkExistsMaster()) {
                 //如果存在群首，就退出
                 break;
             }
@@ -65,10 +67,9 @@ public class Master {
     /**
      * 检查有没有群首
      *
-     * @param serverId
      * @return
      */
-    boolean checkExistsMaster(String serverId) throws InterruptedException {
+    boolean checkExistsMaster() throws InterruptedException {
         try {
             Stat stat = new Stat();
             byte[] data = zkClient.getData(MASTER_PATH, false, stat);
@@ -80,6 +81,6 @@ public class Master {
 
         }
         //出现其他异常时继续检查
-        return checkExistsMaster(serverId);
+        return checkExistsMaster();
     }
 }
