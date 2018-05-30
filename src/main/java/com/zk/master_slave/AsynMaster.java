@@ -23,7 +23,7 @@ public class AsynMaster {
     Random random = new Random();
     String serverId = Integer.toHexString(random.nextInt());
     static Logger logger = LoggerFactory.getLogger(AsynMaster.class);
-    final static String MASTER_PATH = "/master";
+
     boolean isLeader = false;
 
     public static void main(String[] args) throws InterruptedException {
@@ -52,11 +52,11 @@ public class AsynMaster {
                     default:
                         isLeader = false;
                 }
-                logger.info("isLeader-->" + isLeader);
+                logger.info("isLConstseader-->" + isLeader);
 
             }
         };
-        zkClient.create(MASTER_PATH, serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, sc, null);
+        zkClient.create(Consts.MASTER_PATH, serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, sc, null);
     }
 
 
@@ -81,6 +81,6 @@ public class AsynMaster {
                 }
             }
         };
-        zkClient.getData(MASTER_PATH, false, cb, null);
+        zkClient.getData(Consts.MASTER_PATH, false, cb, null);
     }
 }

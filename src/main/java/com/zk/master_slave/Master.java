@@ -22,7 +22,7 @@ public class Master {
     Random random = new Random();
     String serverId = Integer.toHexString(random.nextInt());
     static Logger logger = LoggerFactory.getLogger(Master.class);
-    final static String MASTER_PATH = "/master";
+
     boolean isLeader = false;
 
     public static void main(String[] args) throws InterruptedException {
@@ -41,7 +41,7 @@ public class Master {
         while (true) {
             try {
                 logger.info("try election leader .");
-                zkClient.create(MASTER_PATH, serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+                zkClient.create(Consts.MASTER_PATH, serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
                 //创建成功，成为群首
                 isLeader = true;
                 break;
@@ -72,7 +72,7 @@ public class Master {
     boolean checkExistsMaster() throws InterruptedException {
         try {
             Stat stat = new Stat();
-            byte[] data = zkClient.getData(MASTER_PATH, false, stat);
+            byte[] data = zkClient.getData(Consts.MASTER_PATH, false, stat);
             this.isLeader = serverId.equals(new String(data));
             return true;
         } catch (KeeperException.NoNodeException e) {

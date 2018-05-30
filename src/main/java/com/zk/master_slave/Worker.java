@@ -23,7 +23,7 @@ public class Worker {
     Random random = new Random();
     String serverId = Integer.toHexString(random.nextInt());
     static Logger logger = LoggerFactory.getLogger(Worker.class);
-    final String WORKER_PATH = "/workers/worker-" + serverId;
+    final String WORKER_PATH = Consts.WORKER_PATH_PREFIX + serverId;
     String status = null;
 
     void regiester() {

@@ -39,8 +39,8 @@ public class ZKClient {
         return zkClient;
     }
 
-    public void create(String path, byte[] data, List<ACL> acl, CreateMode createMode) throws KeeperException, InterruptedException {
-        zk.create(path, data, acl, createMode);
+    public String create(String path, byte[] data, List<ACL> acl, CreateMode createMode) throws KeeperException, InterruptedException {
+        return zk.create(path, data, acl, createMode);
     }
 
 
@@ -65,6 +65,10 @@ public class ZKClient {
     public void setData(final String path, byte data[], int version,
                         AsyncCallback.StatCallback cb, Object ctx) {
         zk.setData(path, data, version, cb, ctx);
+    }
+
+    public List<String> getChildren(final String path, boolean watch) throws KeeperException, InterruptedException {
+        return zk.getChildren(path, watch);
     }
 
 
