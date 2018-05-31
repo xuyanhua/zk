@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 
 /**
- * 异步选主，创建元数据
+ * 1、异步选主，2、创建元数据
  *
  * @author xuyanhua
  * @description:

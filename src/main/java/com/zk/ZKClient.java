@@ -43,10 +43,24 @@ public class ZKClient {
         return zk.create(path, data, acl, createMode);
     }
 
+    public boolean exists(String path, Watcher watcher) throws KeeperException, InterruptedException {
+        Stat stat = zk.exists(path, watcher);
+        return stat != null;
+    }
+
+    public void exists(String path, Watcher watcher, AsyncCallback.StatCallback cb, Object ctx) {
+        zk.exists(path, watcher, cb, ctx);
+    }
+
 
     public void create(String path, byte[] data, List<ACL> acl, CreateMode createMode, AsyncCallback.StringCallback cb, Object ctx) {
         zk.create(path, data, acl, createMode, cb, ctx);
     }
+
+    public byte[] getData(final String path, Watcher watcher, Stat stat) throws KeeperException, InterruptedException {
+        return zk.getData(path, watcher, stat);
+    }
+
 
     public byte[] getData(String path, boolean watch, Stat stat) throws KeeperException, InterruptedException {
         return zk.getData(path, watch, stat);
@@ -69,6 +83,11 @@ public class ZKClient {
 
     public List<String> getChildren(final String path, boolean watch) throws KeeperException, InterruptedException {
         return zk.getChildren(path, watch);
+    }
+
+
+    public List<String> getChildren(final String path, Watcher watcher) throws KeeperException, InterruptedException {
+        return zk.getChildren(path, watcher);
     }
 
 
