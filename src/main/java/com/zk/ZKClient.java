@@ -76,6 +76,11 @@ public class ZKClient {
         zk.getData(path, watch, cb, ctx);
     }
 
+    public Stat setData(final String path, byte data[], int version) throws KeeperException, InterruptedException {
+        return zk.setData(path, data, version);
+    }
+
+
     public void setData(final String path, byte data[], int version,
                         AsyncCallback.StatCallback cb, Object ctx) {
         zk.setData(path, data, version, cb, ctx);
@@ -90,6 +95,10 @@ public class ZKClient {
         return zk.getChildren(path, watcher);
     }
 
+
+    public void addAuthInfo(String scheme, byte auth[]){
+        zk.addAuthInfo(scheme,auth);
+    }
 
     public void close() {
         if (zk != null) {
