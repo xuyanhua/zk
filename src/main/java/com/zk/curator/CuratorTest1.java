@@ -24,6 +24,7 @@ public class CuratorTest1 {
         String connectString = "127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183";
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 10);
         CuratorFramework client = CuratorFrameworkFactory.newClient(connectString, retryPolicy);
+        //监听器
         CuratorListener listener = new CuratorListener() {
 
             @Override
@@ -32,6 +33,7 @@ public class CuratorTest1 {
             }
         };
         client.getCuratorListenable().addListener(listener);
+        //必须有start
         client.start();
         //创建、设置数据、删除
         client.create().withMode(CreateMode.PERSISTENT).withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE).forPath(path, "".getBytes());
@@ -39,7 +41,7 @@ public class CuratorTest1 {
         client.create().withMode(CreateMode.EPHEMERAL).withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE).forPath(path + "/test1", "".getBytes());
         client.delete().forPath(path + "/test1");
         client.delete().forPath(path);
-
+        //异步回调
         BackgroundCallback bc = new BackgroundCallback() {
             @Override
             public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {
@@ -47,6 +49,7 @@ public class CuratorTest1 {
                 System.out.println(KeeperException.Code.get(rc));
             }
         };
+        //异步执行器
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10);
         executor.execute(new Runnable() {
             @Override
