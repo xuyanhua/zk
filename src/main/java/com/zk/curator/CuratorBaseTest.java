@@ -15,11 +15,12 @@ import org.apache.zookeeper.ZooDefs;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
+ * 基础功能测试
  * @author xuyanhua
  * @description:
  * @date 2018/6/5 上午7:18
  */
-public class CuratorTest1 {
+public class CuratorBaseTest {
     public static void main(String[] args) throws Exception {
         String path = "/curators";
         String connectString = "127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183";
