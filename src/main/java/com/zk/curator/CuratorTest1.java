@@ -6,6 +6,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.BackgroundCallback;
 import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.framework.api.CuratorListener;
+import org.apache.curator.framework.api.UnhandledErrorListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
@@ -33,6 +34,14 @@ public class CuratorTest1 {
             }
         };
         client.getCuratorListenable().addListener(listener);
+        //错误监听器
+        UnhandledErrorListener errorListener = new UnhandledErrorListener() {
+            @Override
+            public void unhandledError(String message, Throwable e) {
+                System.out.println("出错了：" + message + ":" + e.getStackTrace());
+            }
+        };
+        client.getUnhandledErrorListenable().addListener(errorListener);
         //必须有start
         client.start();
         //创建、设置数据、删除
@@ -58,6 +67,7 @@ public class CuratorTest1 {
             }
         });
         client.create().withMode(CreateMode.EPHEMERAL).inBackground(bc, executor).forPath(path, new byte[1024]);
+        client.create().inBackground().forPath("/cccc/ccc");
         Thread.sleep(10000);
         client.close();
     }
