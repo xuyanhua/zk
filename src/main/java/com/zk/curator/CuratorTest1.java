@@ -48,8 +48,10 @@ public class CuratorTest1 {
         client.create().withMode(CreateMode.PERSISTENT).withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE).forPath(path, "".getBytes());
         client.setData().forPath(path, "hello".getBytes());
         client.create().withMode(CreateMode.EPHEMERAL).withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE).forPath(path + "/test1", "".getBytes());
+        client.create().withProtection().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(path + "/seq_");
         client.delete().forPath(path + "/test1");
-        client.delete().forPath(path);
+        //删除保证
+        client.delete().guaranteed().forPath(path);
         //异步回调
         BackgroundCallback bc = new BackgroundCallback() {
             @Override
