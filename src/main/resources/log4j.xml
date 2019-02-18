@@ -89,11 +89,6 @@
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="DATE_FILE" />
 	</category>
-	<category name="com.zhichengcredit" additivity="false">
-		<priority value="INFO" />
-		<appender-ref ref="CONSOLE"/>
-		<appender-ref ref="DATE_FILE" />
-	</category>
 
 	<!--根默认会自动构建一个 root,输出INFO级别的日志到控制台，供logger继承 -->
 	<root>
